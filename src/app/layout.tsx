@@ -35,8 +35,8 @@ export default async function RootLayout({
 
           <ReactQueryProvider>
               <Navbar user={user}></Navbar>
-              {children}
               {modal}
+              {children}
           </ReactQueryProvider>
 
 

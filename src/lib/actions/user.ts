@@ -8,6 +8,7 @@ import {auth, signIn, signOut} from "@/auth.config";
 import {redirect} from "next/navigation";
 import {AuthError} from "next-auth";
 import prisma from "@/lib/db/db";
+import {revalidatePath} from "next/cache";
 
 
 export async function GetSessionUser(){
@@ -44,7 +45,7 @@ export async function createUser(values:z.infer<typeof registerFormSchema>){
         return {error:error?.toString()}
     }
 
-    redirect("login")
+    redirect("/login")
 
     return {success:"Success!"}
 
@@ -87,8 +88,8 @@ export async function loginServerAction(values:z.infer<typeof loginFormSchema>){
     try{
          await signIn("credentials",{
             data:JSON.stringify(validatedFields.data),
-             redirect:false,
-             redirectTo:"/"
+             redirectTo:"/",
+             redirect:true
         })
     }
     catch (error:unknown){
@@ -106,10 +107,6 @@ export async function loginServerAction(values:z.infer<typeof loginFormSchema>){
 
     }
 
-
-
-
-    return {success:"Success!"}
 
 }
 export async function logoutServerAction(){

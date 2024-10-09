@@ -42,8 +42,6 @@ export default function LoginForm(){
             const data = await loginServerAction(values)
             setError(data?.error)
             setSuccess(data?.success)
-            if(data.success)
-                router.push("/")
         })
     }
 
