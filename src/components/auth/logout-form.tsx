@@ -3,7 +3,8 @@
 import {Button} from "@/components/ui/button";
 import {logoutServerAction} from "@/lib/actions/user";
 
-export function Logout({children}:{children:React.ReactNode}){
+
+export function Logout({}:{children:React.ReactNode}){
 
 
 

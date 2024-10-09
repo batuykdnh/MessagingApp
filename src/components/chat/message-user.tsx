@@ -62,7 +62,9 @@ interface userMessageProps{
     currentUserId:string,
     newlyCreated:boolean
 }
-export function UserMessage({picture,currentUserId,content,date,isOwner,newlyCreated}:userMessageProps){
+
+
+export function UserMessage({content,isOwner,newlyCreated}:userMessageProps){
 
 
 

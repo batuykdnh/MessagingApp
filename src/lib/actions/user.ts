@@ -9,7 +9,6 @@ import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
 import {AuthError} from "next-auth";
 import prisma from "@/lib/db/db";
-import {revalidateFromServer} from "@/lib/actions/utils";
 
 
 export async function GetSessionUser(){

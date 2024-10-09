@@ -4,7 +4,6 @@ import {inter} from "@/app/fonts/fonts";
 import {Navbar} from "@/components/ui/nav";
 import ReactQueryProvider from "@/lib/providers/ReactQueryProviders";
 import {auth} from "@/auth.config";
-import {NotificationSystem} from "@/components/socket/notification";
 
 
 export const metadata: Metadata = {
