@@ -121,7 +121,7 @@ export function CreateChatModal({user}:{user:Session}){
 
                     </Description>
                     <div className={"h-full flex justify-center items-center"}>
-                        <CardWrapper header={"Create Account"}>
+                        <CardWrapper header={"Create Message"}>
                             <Form {...form}>
                                 <div className={"flex flex-col gap-5"}>
                                     <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-8 flex flex-col  ">
