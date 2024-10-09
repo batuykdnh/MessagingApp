@@ -3,7 +3,7 @@
 import {Dialog, DialogContent, DialogTitle} from "@/components/ui/dialog";
 import {clsx} from "clsx";
 import {Description} from "@radix-ui/react-dialog";
-import {startTransition, useEffect, useState} from "react";
+import { useEffect, useState, useTransition} from "react";
 import {Button} from "@/components/ui/button";
 import {useInfiniteQuery, useQueryClient} from "@tanstack/react-query";
 import { getUsersWhileSliding} from "@/lib/actions/user";
@@ -25,6 +25,8 @@ import {createChat, getChatUsers} from "@/lib/actions/message";
 import {socket} from "@/socket";
 import {useRouter} from "next/navigation";
 import {revalidateFromServer} from "@/lib/actions/utils";
+import {AiOutlineLoading} from "react-icons/ai";
+import {FormError} from "@/components/ui/condition-messages";
 
 export function CreateChatModal({user}:{user:Session}){
     const [open,setOpen] = useState(false)
@@ -32,9 +34,13 @@ export function CreateChatModal({user}:{user:Session}){
     const [query,setQuery] = useState("")
     const [selectedUser,setSelectedUser] = useState("")
     const { ref, inView } = useInView()
+    const [isPending,startTransition] = useTransition()
 
     const queryClient = useQueryClient()
     const router = useRouter()
+
+
+    const [error,setError] = useState("")
 
     const form = useForm<z.infer<typeof createChatFormSchema>>({
         resolver: zodResolver(createChatFormSchema),
@@ -76,6 +82,7 @@ export function CreateChatModal({user}:{user:Session}){
 
         startTransition(async ()=>{
             const data = await createChat(values)
+            setError("")
             if(data.success){
                 const chatUsers = await getChatUsers(data.success)
                 socket.emit("getMessage",{
@@ -90,6 +97,8 @@ export function CreateChatModal({user}:{user:Session}){
                 await revalidateFromServer("/?chatId="+data.success)
                 router.push("/?chatId="+data.success)
             }
+            else if(data.error)
+                setError(data.error)
 
         })
     }
@@ -193,12 +202,12 @@ export function CreateChatModal({user}:{user:Session}){
                                                 </FormItem>
                                             )}
                                         />
-
                                         <Button className={"self-center"} type="submit">Submit</Button>
                                     </form>
+                                    {isPending && <AiOutlineLoading className={"animate-spin self-center"}/>}
+                                    {error &&  <FormError message={error}></FormError>}
 
                                 </div>
-
                             </Form>
                         </CardWrapper>
                     </div>

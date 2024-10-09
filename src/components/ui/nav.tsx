@@ -8,6 +8,7 @@ import Link from "next/link";
 import {Session} from "next-auth";
 import {Logout} from "@/components/auth/logout-form";
 import {NotificationSystem} from "@/components/socket/notification";
+import {Card} from "@/components/ui/card";
 
 export function Navbar({user}:{user?:Session | null}){
 
@@ -59,6 +60,9 @@ export function Navbar({user}:{user?:Session | null}){
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                             <NotificationSystem user={user} />
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <Card className={"p-3 bg-black text-white border-none"}>{user.user.username}</Card>
                         </NavigationMenuItem>
                     </>
                     )

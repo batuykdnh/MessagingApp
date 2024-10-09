@@ -1,6 +1,6 @@
 import prisma from "@/lib/db/db";
 import {messages, notification} from "@prisma/client";
-import {ITEM_PER_PAGE} from "@/lib/db/user";
+import {getUserByUsername, ITEM_PER_PAGE} from "@/lib/db/user";
 
 export async function getChatOfCurrentUser(currentUserId:string){
 
@@ -150,6 +150,10 @@ export async function clearNotificationsDb(userId:string){
 export async function createChatDb(messageData:Omit<messages, 'id' | 'sendDate' | 'chatId' >,currentUserId:string,targetUserUsername:string){
 
     const checkIfExist = await checkIfChatExist(currentUserId,targetUserUsername)
+    const targetId = await getUserByUsername(targetUserUsername)
+
+    if(currentUserId === targetId?.id)
+        throw new Error("User can't send a message to themself")
 
 
     if(checkIfExist)
