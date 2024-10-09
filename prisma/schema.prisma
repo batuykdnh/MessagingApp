@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id                  String         @id @default(uuid())
+  username            String         @unique
+  email               String?        @unique
+  picture             String         @default("/")
+  password            String
+  posts               posts[]
+  Session             sessions[]
+  accountCreationDate DateTime       @default(now())
+  messages            messages[]
+  chats               chats[]
+  notification        notification[]
+}
+
+model posts {
+  id      String   @id @default(uuid())
+  owner   users    @relation(fields: [userId], references: [id])
+  content String
+  userId  String
+  date    DateTime @default(now())
+}
+
+model notification {
+  id         String   @id @default(uuid())
+  owner      users    @relation(fields: [userId], references: [id])
+  message    messages @relation(fields: [messagesId], references: [id])
+  userId     String
+  messagesId String
+  isSeen     Boolean  @default(false)
+}
+
+model chats {
+  id       String     @id @default(uuid())
+  users    users[]
+  messages messages[]
+}
+
+model messages {
+  id           String         @id @default(uuid())
+  sendDate     DateTime       @default(now())
+  content      String
+  users        users          @relation(fields: [ownerId], references: [id])
+  ownerId      String
+  chats        chats          @relation(fields: [chatId], references: [id])
+  chatId       String
+  notification notification[]
+}
+
+model sessions {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
