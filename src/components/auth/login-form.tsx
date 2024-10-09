@@ -31,17 +31,13 @@ export default function LoginForm(){
 
     const [isPending,startTransition] = useTransition()
     const [error,setError] = useState<string | undefined>()
-    const [success,setSuccess] = useState<string | undefined>()
-    const router = useRouter()
 
     const onSubmit =  (values:z.infer<typeof loginFormSchema>)=>{
         setError("")
-        setSuccess("")
 
         startTransition(async ()=>{
             const data = await loginServerAction(values)
             setError(data?.error)
-            setSuccess(data?.success)
         })
     }
 
@@ -87,7 +83,6 @@ export default function LoginForm(){
                     </form>
                     {isPending && <AiOutlineLoading className={"animate-spin self-center"}/>}
                     {error &&  <FormError message={error}></FormError>}
-                    {success &&  <FormSuccess message={success}></FormSuccess>}
 
                 </div>
 

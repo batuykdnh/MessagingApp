@@ -8,7 +8,6 @@ import {auth, signIn, signOut} from "@/auth.config";
 import {redirect} from "next/navigation";
 import {AuthError} from "next-auth";
 import prisma from "@/lib/db/db";
-import {revalidatePath} from "next/cache";
 
 
 export async function GetSessionUser(){
