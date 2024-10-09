@@ -63,6 +63,8 @@ export function SearchPagination({pageAmount,currentPage}:{pageAmount:number,cur
     for (let i = pageAmount; i > pageAmount-4 ; i--) {
         if(i === currentPage && pageAmount > 4)
             break
+        if(i <=0)
+            break
         data.push(i)
     }
 
