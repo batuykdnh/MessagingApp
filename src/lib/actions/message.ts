@@ -34,6 +34,9 @@ export async function createChat(values:z.infer<typeof createChatFormSchema>){
 
     }
     catch (error:unknown){
+        if(error?.toString().startsWith("PrismaClientKnownRequestError")){
+            return {error:"Please Select An User"}
+        }
         return {error:error?.toString()}
     }
 
@@ -52,6 +55,8 @@ export async function getMessagesWhileSliding(chatId:string,page:number){
 
 }
 export async function getChatUsers(chatId:string){
+
+
 
     return getChatUsersDB(chatId)
 

@@ -107,10 +107,10 @@ export function CreateChatModal({user}:{user:Session}){
     return (
         <>
             <Dialog open={open} onOpenChange={setOpen} >
-                <Button className={"h-[120px] lg:h-auto"} onClick={()=>{
+                <Button className={" h-[120px] lg:h-auto"} onClick={()=>{
                     setOpen(true)
                 }}>Create Chat</Button>
-                <DialogContent className={clsx(" bg-white dark:bg-black transition",
+                <DialogContent className={clsx("border-none bg-white dark:bg-black transition",
                     {
 
                     })}>
@@ -211,6 +211,10 @@ export function CreateChatModal({user}:{user:Session}){
                             </Form>
                         </CardWrapper>
                     </div>
+                    <Button className={""} onClick={()=>{
+                        setOpen(false)
+                        setOpenUser(false)
+                    }}>Cancel</Button>
                 </DialogContent>
             </Dialog>
         </>

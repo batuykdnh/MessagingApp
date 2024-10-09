@@ -12,7 +12,7 @@ export default function CardWrapper({children,header,footer}:CardWrapperProps) {
 
     return (
         <>
-            <Card className={`w-[400px] bg-white dark:bg-black text-black dark:text-white`} >
+            <Card className={`w-full lg:w-[400px] border-none bg-white dark:bg-black text-black dark:text-white`} >
                 <CardHeader>
                     {header && <CardTitle className={"flex justify-center"}>
                         {header}

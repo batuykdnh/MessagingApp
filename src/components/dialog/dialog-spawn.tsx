@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {clsx} from "clsx";
 import {Description} from "@radix-ui/react-dialog";
 import {useRouter} from "next/navigation";
+import {Button} from "@/components/ui/button";
 
 
 interface DialogSpawnProps{
@@ -28,7 +29,7 @@ export default function DialogSpawn({children,title}:DialogSpawnProps){
             router.back()
         }} >
 
-            <DialogContent className={clsx(" bg-white dark:bg-black transition",
+            <DialogContent className={clsx("border-none bg-white dark:bg-black transition",
                 {
                     "translate-y-1/3 opacity-0":!loaded
                 })}>
@@ -38,8 +39,12 @@ export default function DialogSpawn({children,title}:DialogSpawnProps){
                 <Description>
                     {title}
                 </Description>
-                <div className={"h-full flex justify-center items-center"}>
+                <div className={"h-full flex flex-col justify-center items-center"}>
                     {children}
+                    <Button onClick={()=>{
+                        router.back()
+
+                    }}>Cancel</Button>
                 </div>
             </DialogContent>
         </Dialog>
