@@ -43,7 +43,7 @@ export default function LoginForm(){
             setError(data?.error)
             setSuccess(data?.success)
             if(data.success)
-                router.back()
+                router.push("/")
         })
     }
 

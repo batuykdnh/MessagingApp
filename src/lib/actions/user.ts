@@ -89,7 +89,8 @@ export async function loginServerAction(values:z.infer<typeof loginFormSchema>){
     try{
          await signIn("credentials",{
             data:JSON.stringify(validatedFields.data),
-             redirect:false
+             redirect:false,
+             redirectTo:"/"
         })
     }
     catch (error:unknown){
