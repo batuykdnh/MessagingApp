@@ -45,7 +45,6 @@ export async function createUser(values:z.infer<typeof registerFormSchema>){
         return {error:error?.toString()}
     }
 
-    revalidatePath("/login")
     redirect("login")
 
     return {success:"Success!"}
