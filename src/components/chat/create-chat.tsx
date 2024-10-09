@@ -56,7 +56,7 @@ export function CreateChatModal({user}:{user:Session}){
         hasNextPage,
     } = useInfiniteQuery({
         queryKey: ['users'],
-        queryFn: async ({ pageParam  })=>  getUsersWhileSliding(query,pageParam),
+        queryFn: async ({ pageParam  })=>  getUsersWhileSliding(user.user.id,query,pageParam),
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages) => lastPage.length>0?pages.length +1 : undefined,
     })

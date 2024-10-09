@@ -50,14 +50,17 @@ export async function createUser(values:z.infer<typeof registerFormSchema>){
 
 }
 
-export async function getUsersWhileSliding(query:string,page:number){
+export async function getUsersWhileSliding(userId:string,query:string,page:number){
 
     page = page?page:1
 
-    const data = await prisma.users.findMany({
+    return prisma.users.findMany({
         where: {
             username:{
                 contains: query,
+            },
+            NOT:{
+                id:userId
             }
         },
 
@@ -67,7 +70,6 @@ export async function getUsersWhileSliding(query:string,page:number){
     });
 
 
-    return data
 
 }
 
