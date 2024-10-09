@@ -5,7 +5,6 @@ import {z} from "zod";
 import {createUserDB, ITEM_PER_PAGE} from "@/lib/db/user";
 import bcrypt from "bcrypt";
 import {auth, signIn, signOut} from "@/auth.config";
-import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
 import {AuthError} from "next-auth";
 import prisma from "@/lib/db/db";
